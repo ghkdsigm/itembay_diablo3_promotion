@@ -78,7 +78,7 @@
           removeRune($('.delRune'));         
         })
 
-        //당첨
+        //합성
         $('.realBtn').on('click', function () {         
           var randomNum = Math.floor(Math.random() * 5)       
           if(boxNum >= 1){
@@ -92,6 +92,7 @@
           }
         });
 
+        //당첨결과
         function jacpot(randomNum, boxNum){
           $('.cubeBoxResult').css('display','flex')      
           if(boxNum === 1){
@@ -105,8 +106,7 @@
           else {
             $('.cubeBoxResult').find('img').attr('src', `${present3[randomNum].url}`).attr('alt', `${present3[randomNum].name}`)
             $('.resultTxt1, .resultTxt2').find('span').text(`${present3[randomNum].name}`)
-          }          
-          
+          }  
         }
         
         //룬추가
@@ -114,15 +114,9 @@
           add.on('click', function () {
             if (boxNum < runeCubeBox.length && coin > 0) {
               boxNum++;
-              //bxNum(boxNum);
-              runeCubeBox
-                .eq(boxNum - 1)
-                .addClass('on')
-                .find('img')
-                .attr('src', '/images/rune.jpg');
+              runeCubeBox.eq(boxNum - 1).addClass('on').find('img').attr('src', '/images/rune.jpg');
               coin--;
             }
-            //console.log(coin);
             $rune.text(coin);
           });
         }
@@ -132,11 +126,9 @@
           remove.on('click', function () {
             if (boxNum <= cubeBox.length && boxNum > 0) {
               boxNum--;
-              //bxNum(boxNum);
               cubeBox.eq(boxNum).removeClass('on').find('img').attr('src', '');
               coin++;
             }
-            //console.log(coin);
             $rune.text(coin);
           });
         }
@@ -183,7 +175,7 @@
           보유 룬 <span>0</span> 개
         </div>      
         <button class="btn">합성하기</button>
-        <button class="realBtn">진짜 합성하기</button>
+        <button class="realBtn">합성하기</button>
       </div>
       <div class="cubeBoxResult">
         <img src="" alt="" />
