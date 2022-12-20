@@ -72,7 +72,7 @@
     <script>
       $(function () {
         var $rune = $('.hadRune span');
-        var coin = 6;
+        var coin = 2;
         var boxNum = 0;
         var cubeBox = $('.cubeBox > li');
         var runeCubeBox = $('.runeCubeBox > li');
@@ -156,6 +156,8 @@
               boxNum++;
               runeCubeBox.eq(boxNum - 1).addClass('on').find('img').attr('src', '/images/rune.jpg');
               coin--;
+            } else {
+              alert('3개의 룬이 추가 완료되었습니다. 합성 버튼을 눌러 조합해 주세요.')
             }
             $rune.text(coin);
           });
@@ -169,7 +171,7 @@
               cubeBox.eq(boxNum).removeClass('on').find('img').attr('src', '');
               coin++;
             } else {
-              alert('삭제할 룬이 없습니다 룬을 추가해주세요')
+              alert('삭제할 룬이 없습니다.')
             }
             $rune.text(coin);
           });
