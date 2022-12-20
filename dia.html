@@ -127,7 +127,7 @@
         });
 
         //당첨결과
-        function jacpot(randomNum, boxNum){
+        var jacpot = function(randomNum, boxNum){
           $('.cubeBoxResult').css('display','flex')      
           if(boxNum === 1){
             $('.cubeBoxResult').find('img').attr('src', `${present1[randomNum].url}`).attr('alt', `${present1[randomNum].name}`)
@@ -150,7 +150,7 @@
         }
         
         //룬추가
-        function addRune(add) {
+        var addRune = function(add) {
           add.on('click', function () {
             if (boxNum < runeCubeBox.length && coin > 0) {
               boxNum++;
@@ -167,7 +167,7 @@
         }
 
         //룬삭제
-        function removeRune(remove) {
+        var removeRune = function(remove) {
           remove.on('click', function () {
             if (boxNum <= cubeBox.length && boxNum > 0) {
               boxNum--;
