@@ -14,9 +14,9 @@
       * {margin: 0;padding: 0;}
       body {background: #000;color: #fff;}
       a {color: #fff;}
-      .wrapper {max-width: 600px;margin: 0 auto; position: relative;}
-      .cubeWrap {margin: 0 auto;max-width: 100%;display: none;position: relative; text-align: center;}
-      .controlWrap {display: flex;margin: 0 auto;max-width: 200px;justify-content: center;justify-content: center;flex-direction: column;}
+      .wrapper {max-width: 600px; height: 858px;margin: 0 auto; position: relative; background-image: url(/images/box.png); background-size: cover;}
+      .cubeWrap {margin: 0 auto;max-width: 100%;display: none;position: relative; text-align: center; position: relative; top: 345px;}
+      .controlWrap {display: flex;margin: 0 auto;max-width: 200px;justify-content: center;justify-content: center;flex-direction: column; position: relative;top: 345px;}
       .controlWrap > div {display: flex; justify-content: center;}
       .controlWrap > div > a {flex: 1;}
       .cubeBox {display: flex;flex-wrap: wrap;width: 100%;position: relative;justify-content: center;}
@@ -24,13 +24,50 @@
       .cubeBox.default{flex-wrap: inherit;}
       .cubeBox.default li { position: relative;}
       .cubeBox.default .runeCount {position: absolute;right: 15px;}
-      .cubeBox li {display: flex;width:150px;height:150px;box-sizing: border-box;border: 1px solid #ccc;padding: 15px;}
-      .cubeBox li + li {margin-left: 15px;}
+      .cubeBox li {display: flex;width: 98px;height: 100px;box-sizing: border-box;padding: 15px;position: relative;}
+      .cubeBox li.on::before {content:'';width:100%;height:100%;position: absolute;left:0;background: #fff;top:0;z-index: 1; -webkit-animation: ping 0.2s ease-in-out both;animation: ping 0.2s ease-in-out both;}      
+      .cubeBox li img {z-index: 5;}
+      .cubeBox li + li {margin-left: 10px;}
       .cubeBox li span {position: absolute;z-index: 2;}
-      .addRune {padding: 5px;}
-      .removeRune {padding: 5px;}
+      .addRune {padding: 15px; display: inline-block;}
+      .delRune {padding: 15px; display: inline-block;}
       .cubeBoxResult {display: none;position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 10;background: #ccc;align-items: center;flex-direction: column;justify-content: center;}
       button {padding:15px;}
+
+      @-webkit-keyframes ping {
+        0% {
+          -webkit-transform: scale(0.2);
+                  transform: scale(0.2);
+          opacity: 0.8;
+        }
+        80% {
+          -webkit-transform: scale(1.2);
+                  transform: scale(1.2);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: scale(2.2);
+                  transform: scale(2.2);
+          opacity: 0;
+        }
+      }
+      @keyframes ping {
+        0% {
+          -webkit-transform: scale(0.2);
+                  transform: scale(0.2);
+          opacity: 0.8;
+        }
+        80% {
+          -webkit-transform: scale(1.2);
+                  transform: scale(1.2);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: scale(2.2);
+                  transform: scale(2.2);
+          opacity: 0;
+        }
+      }
     </style>
     <script>
       $(function () {
@@ -40,27 +77,25 @@
         var cubeBox = $('.cubeBox > li');
         var runeCubeBox = $('.runeCubeBox > li');
         var present1 = [
-          { name:'조던링', url:'/images/present/p3.jpg' },
-          { name:'마일리지 500원', url:'/images/present/ml500.jpg' },
-          { name:'마일리지 100원', url:'/images/present/ml100.jpg' },
-          { name:'할인쿠폰 500원', url:'/images/present/dc500.jpg' },
-          { name:'파워존1시간', url:'/images/present/pzone.jpg' },
+          { name:'조던링', url:'/images/present/p3.jpg', price:'5,000원' },
+          { name:'마일리지', url:'/images/present/ml500.jpg', price:'500원' },
+          { name:'마일리지', url:'/images/present/ml100.jpg', price:'100원' },
+          { name:'할인쿠폰', url:'/images/present/dc500.jpg', price:'500원' },
+          { name:'파워존', url:'/images/present/pzone.jpg', price:'1시간' }
         ]
         var present2 = [
-          { name:'샤코', url:'/images/present/p1.jpg' },
-          { name:'마일리지 2000원', url:'/images/present/ml2000.jpg' },
-          { name:'마일리지 1000원', url:'/images/present/ml1000.jpg' },
-          { name:'할인쿠폰 1000원', url:'/images/present/dc1000.jpg' },
-          { name:'파워존1시간', url:'/images/present/pzone.jpg' },
-          
+          { name:'할리퀸 샤코', url:'/images/present/p1.jpg', price:'10,000원' },
+          { name:'마일리지', url:'/images/present/ml2000.jpg', price:'2,000원' },
+          { name:'마일리지', url:'/images/present/ml1000.jpg', price:'1,000원' },
+          { name:'할인쿠폰', url:'/images/present/dc1000.jpg', price:'1,000원' },
+          { name:'파워존', url:'/images/present/pzone.jpg', price:'1시간' }          
         ]
         var present3 = [
-          { name:'수수께끼', url:'/images/present/p2.jpg' },
-          { name:'마일리지 5000원', url:'/images/present/ml5000.jpg' },
-          { name:'마일리지 3000원', url:'/images/present/ml3000.jpg' },
-          { name:'할인쿠폰 2000원', url:'/images/present/dc2000.jpg' },
-          { name:'파워존1시간', url:'/images/present/pzone.jpg' },
-          
+          { name:'수수께끼', url:'/images/present/p2.jpg', price:'20,000원' },
+          { name:'마일리지', url:'/images/present/ml5000.jpg', price:'5,000원' },
+          { name:'마일리지', url:'/images/present/ml3000.jpg', price:'3,000원' },
+          { name:'할인쿠폰', url:'/images/present/dc2000.jpg', price:'2,000원' },
+          { name:'파워존', url:'/images/present/pzone.jpg', price:'1시간' }          
         ]
 
         $('.realBtn').hide();
@@ -72,8 +107,7 @@
           $('.cubeBox.default').hide();
           $('.cubeWrap').show();          
           $('.btn').hide();
-          $('.realBtn').show();              
-          //$('.realBtn').off();            
+          $('.realBtn').show();             
           addRune($('.addRune'));
           removeRune($('.delRune'));         
         })
@@ -83,12 +117,12 @@
           var randomNum = Math.floor(Math.random() * 5)       
           if(boxNum >= 1){
             $('.realBtn').off()
-            alert('당첨되었습니다');
+            alert('당첨 되었습니다');
             setTimeout(function(){
               jacpot(randomNum, boxNum)
             },500)
           } else {
-            alert('룬 추가 후 합성해 주세요.')
+            alert('룬 추가 후 합성 해 주세요.')
           }
         });
 
@@ -97,16 +131,22 @@
           $('.cubeBoxResult').css('display','flex')      
           if(boxNum === 1){
             $('.cubeBoxResult').find('img').attr('src', `${present1[randomNum].url}`).attr('alt', `${present1[randomNum].name}`)
-            $('.resultTxt1, .resultTxt2').find('span').text(`${present1[randomNum].name}`)
+            $('.resultTxt1').find('span').text(`${present1[randomNum].name}`)
+            $('.resultTxt2').find('span').text(`${present1[randomNum].price}`)
           }
           else if(boxNum === 2){
             $('.cubeBoxResult').find('img').attr('src', `${present2[randomNum].url}`).attr('alt', `${present2[randomNum].name}`)
-            $('.resultTxt1, .resultTxt2').find('span').text(`${present2[randomNum].name}`)
+            $('.resultTxt1').find('span').text(`${present2[randomNum].name}`)
+            $('.resultTxt2').find('span').text(`${present2[randomNum].price}`)
           }
           else {
             $('.cubeBoxResult').find('img').attr('src', `${present3[randomNum].url}`).attr('alt', `${present3[randomNum].name}`)
-            $('.resultTxt1, .resultTxt2').find('span').text(`${present3[randomNum].name}`)
+            $('.resultTxt1').find('span').text(`${present3[randomNum].name}`)
+            $('.resultTxt2').find('span').text(`${present3[randomNum].price}`)
           }  
+          $('.confirm').on('click',function(){
+            $(this).parent('.cubeBoxResult').hide()
+          })
         }
         
         //룬추가
@@ -161,15 +201,15 @@
       <div class="controlWrap">
         <ul class="cubeBox default">
           <li>
-            <img src="/images/rune.jpg" alt="" />
+            <img src="/images/rune.jpg" alt="rune" />
             <div class="rc01 runeCount">x<span>1</span></div>
           </li>
           <li>
-            <img src="/images/rune.jpg" alt="" />
+            <img src="/images/rune.jpg" alt="rune" />
             <div class="rc02 runeCount">x<span>6</span></div>
           </li>
           <li>
-            <img src="/images/rune.jpg" alt="" />
+            <img src="/images/rune.jpg" alt="rune" />
             <div class="rc03 runeCount">x<span>4</span></div>
           </li>
         </ul>
